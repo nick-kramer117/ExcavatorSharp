@@ -1,11 +1,6 @@
 ﻿using RestSharp;
 using System.Net;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Test4
 {
@@ -13,7 +8,7 @@ namespace Test4
     {
         static void Main(string[] args)
         {
-            ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12; // <-- В коде не где не используеться.
+            ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12; // <-- В коде ни где не используеться.
 
             RestClient Client = new RestClient();
             RestRequest Request = new RestRequest("https://nick-kramer117.github.io");
