@@ -1,0 +1,105 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Test6_mod.Styles.BaseColors">
+    <!--MyBlack/MyWhite: асинхроные цвета для контента-->
+    <SolidColorBrush x:Key="MyBlack_10" Color="#000000" />
+    <Color x:Key="MyBlack10">#000000</Color>
+
+    <SolidColorBrush x:Key="MyWhite_0" Color="#FFFFFF"/>
+    <Color x:Key="MyWhite0">#ECEFF1</Color>
+
+    <!--TealBrush: цвет моря для фона трендов-->
+    <SolidColorBrush x:Key="A400_TealBrush" Color="#1DE9B6" />
+    <Color x:Key="A400TealBrush10">#1DE9B6</Color>
+
+    <!--TealBrush: цвет голубой для фона трендов-->
+    <SolidColorBrush x:Key="A700_LightBlue" Color="#0091EA" />
+    <Color x:Key="A700LightBlue">#0091EA</Color>
+
+    <!--TealBrush: глубокий цвет моря для фона под белый контент-->
+    <SolidColorBrush x:Key="TealBrush_10" Color="#004D40" />
+    <Color x:Key="TealBrush10">#004D40</Color>
+
+    <SolidColorBrush x:Key="TealBrush_9" Color="#00695C" />
+    <Color x:Key="TealBrush9">#00695C</Color>
+
+    <SolidColorBrush x:Key="TealBrush_8" Color="#00796B" />
+    <Color x:Key="TealBrush8">#00796B</Color>
+
+    <SolidColorBrush x:Key="TealBrush_7" Color="#00897B" />
+    <Color x:Key="TealBrush7">#00897B</Color>
+
+    <SolidColorBrush x:Key="TealBrush_6" Color="#009688" />
+    <Color x:Key="TealBrush6">#009688</Color>
+
+    <!--TealBrush: лёгкий цвет моря для фона под чёрный контент-->
+    <SolidColorBrush x:Key="TealBrush_5" Color="#004D40" />
+    <Color x:Key="TealBrush5">#004D40</Color>
+
+    <SolidColorBrush x:Key="TealBrush_4" Color="#00695C" />
+    <Color x:Key="TealBrush4">#00695C</Color>
+
+    <SolidColorBrush x:Key="TealBrush_3" Color="#00796B" />
+    <Color x:Key="TealBrush3">#00796B</Color>
+
+    <SolidColorBrush x:Key="TealBrush_2" Color="#00897B" />
+    <Color x:Key="TealBrush2">#00897B</Color>
+
+    <SolidColorBrush x:Key="TealBrush_1" Color="#009688" />
+    <Color x:Key="TealBrush1">#009688</Color>
+
+    <!--DarkGreay: глубокий серый цвет для фона под белый контент 0A0A0A -->
+    <SolidColorBrush x:Key="DarkGreay_11" Color="#121212 " />
+    <Color x:Key="DarkGreay11">#121212</Color>
+
+    <SolidColorBrush x:Key="DarkGreay_10" Color="#1E1E1E" />
+    <Color x:Key="DarkGreay10">#1E1E1E</Color>
+
+    <SolidColorBrush x:Key="DarkGreay_9" Color="#242424" />
+    <Color x:Key="DarkGreay9">#242424</Color>
+
+    <SolidColorBrush x:Key="DarkGreay_8" Color="#424242" />
+    <Color x:Key="DarkGreay8">#424242</Color>
+
+    <SolidColorBrush x:Key="DarkGreay_7" Color="#757575" />
+    <Color x:Key="DarkGreay7">#757575</Color>
+
+    <SolidColorBrush x:Key="DarkGreay_6" Color="#616161" />
+    <Color x:Key="DarkGreay6">#616161</Color>
+
+    <!--DarkGreay: лёгкий серый цвет для фона под чёрный контент контент-->
+    <SolidColorBrush x:Key="DarkGreay_5" Color="#9E9E9E" />
+    <Color x:Key="DarkGreay5">#9E9E9E</Color>
+
+    <SolidColorBrush x:Key="DarkGreay_4" Color="#BDBDBD" />
+    <Color x:Key="DarkGreay4">#BDBDBD</Color>
+
+    <SolidColorBrush x:Key="DarkGreay_3" Color="#E0E0E0" />
+    <Color x:Key="DarkGreay3">#E0E0E0</Color>
+
+    <SolidColorBrush x:Key="DarkGreay_2" Color="#EEEEEE" />
+    <Color x:Key="DarkGreay2">#EEEEEE</Color>
+
+    <SolidColorBrush x:Key="DarkGreay_1" Color="#F5F5F5" />
+    <Color x:Key="DarkGreay1">#F5F5F5</Color>
+
+    <!--MotorColor: Окраска мотора -->
+    <SolidColorBrush x:Key="MotorColor_1" Color="#000a12" />
+    <Color x:Key="MotorColor1">#000a12</Color>
+
+    <!--DatagridColor: Окраска таблиц-->
+    <SolidColorBrush x:Key="Alter_R" Color="#1C1C1C"/>
+    <Color x:Key="AlterR">#1C1C1C</Color>
+
+    <SolidColorBrush x:Key="Base_R" Color="#141414"/>
+    <Color x:Key="BaseR">#141414</Color>
+
+    <!--CorsorColor:  Курсор-->
+    <SolidColorBrush x:Key="Cursor_1" Color="#00BFA5"/>
+    <Color x:Key="Cursor1">#00BFA5</Color>
+
+    <!--Подборка цвета для панелей с виджитами-->
+    <SolidColorBrush x:Key="Dash_Background" Color="#252628"/>
+    <Color x:Key="DashBackground">#252628</Color>
+
+</ResourceDictionary>
