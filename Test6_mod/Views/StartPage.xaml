@@ -127,7 +127,7 @@
                             </Grid>
                         </Grid>
                         <Grid Grid.Row="1">
-                            <TextBox x:Name="txtLogin" 
+                            <TextBox x:Name="txtURL" 
                                      materialDesign:HintAssist.Hint="Ввдите URL адресс: http://..." 
                                      Margin="2 0" 
                                      Foreground="{StaticResource MyWhite_0}" 
@@ -149,7 +149,7 @@
                                 HorizontalAlignment="Stretch"
                                 ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
                                 ScrollViewer.VerticalScrollBarVisibility="Disabled">
-                                <ListViewItem Height="50">
+                                <ListViewItem Height="50" MouseDoubleClick="AddUrlPage">
                                     <StackPanel Orientation="Horizontal" 
                                             Focusable="False">
                                         <materialDesign:PackIcon Kind="Add" 
@@ -167,7 +167,7 @@
                                                Focusable="False"/>
                                     </StackPanel>
                                 </ListViewItem>
-                                <ListViewItem Height="50">
+                                <ListViewItem Height="50" MouseDoubleClick="StartScanning">
                                     <StackPanel Orientation="Horizontal"
                                             Focusable="False">
                                         <materialDesign:PackIcon Kind="Download" 
@@ -212,7 +212,7 @@
                             </Grid>
                         </Grid>
                         <Grid Grid.Row="1">
-                            <DataGrid x:Name="PriseURL" 
+                            <DataGrid x:Name="CollectionURL" 
                                   AutoGenerateColumns="False"                              
                                   FontSize="10"
                                   Foreground="{DynamicResource DarkGreay_3}"
@@ -224,12 +224,16 @@
                                   materialDesign:ThemeAssist.Theme="Dark" 
                                   VerticalGridLinesBrush="#B2686868">
                                 <DataGrid.Columns>
-                                    <DataGridTextColumn Width="30*" 
-                                                IsReadOnly="False" 
-                                                Binding="{Binding IsComent}" 
+                                    <DataGridTextColumn Width="*" 
+                                                IsReadOnly="True" 
+                                                Binding="{Binding IsName}" 
+                                                Header="Имя"/>
+                                    <DataGridTextColumn Width="*" 
+                                                IsReadOnly="True" 
+                                                Binding="{Binding IsURL}" 
                                                 Header="Сылка"/>
-                                    <DataGridTextColumn Width="10*" 
-                                                IsReadOnly="False" 
+                                    <DataGridTextColumn Width="70" 
+                                                IsReadOnly="True" 
                                                 Binding="{Binding IsStatus}" 
                                                 Header="Статус"/>
                                 </DataGrid.Columns>

@@ -16,19 +16,33 @@ using System.Windows.Input;
 using System.ComponentModel;
 using System.Xaml;
 
+using Test6_mod.ViewModels.UI;
+
 namespace Test6_mod
 {
     public partial class StartPage : Window
     {
+        private CreateCollectionURL URLs = new CreateCollectionURL();
+
         public string HtmlContent { get; set; }
 
         public StartPage()
         {
             InitializeComponent();
 
-            HtmlContent = "Test";
+            CollectionURL.ItemsSource = URLs.CollectionURLs;
+        }
 
-            DataContext = this;
+        private void AddUrlPage(object sender, MouseButtonEventArgs e)
+        {
+            if (txtURL.Text != "") 
+                URLs.AddUrl(txtURL.Text);
+            txtURL.Text = "";
+        }
+
+        private void StartScanning(object sender, MouseButtonEventArgs e)
+        {
+            txtURL.Text = "";
         }
     }
 }
