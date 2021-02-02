@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Test6_mod.ViewModels
+namespace Test6_mod.ViewModels.Exceptions
 {
-    public class WorkWithPages
+    class WriterPageExeption
     {
-
     }
 }

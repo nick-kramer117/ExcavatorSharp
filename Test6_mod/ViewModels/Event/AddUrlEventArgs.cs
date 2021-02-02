@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 using Test6_mod.ViewModels.Exceptions;
 
@@ -12,7 +8,7 @@ namespace Test6_mod.ViewModels.Event
     {
         public string URL { get; private set; }
 
-        public AddUrlEventArgs(string url)
+        public AddUrlEventArgs(in string url)
         {
             if (testURL(url))
                 URL = url;

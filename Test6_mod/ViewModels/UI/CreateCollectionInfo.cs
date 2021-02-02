@@ -15,12 +15,6 @@ namespace Test6_mod.ViewModels.UI
     {
         public static BindingList<ItemCollectionInfo> CollectionInfo { get; private set; } = new BindingList<ItemCollectionInfo>();
 
-        static CreateCollectionInfo()
-        {
-            StartPage.AddLogURL += StartPage_AddURL;
-            StartPage.AddLogFaultURL += StartPage_FaultAddURL;
-        }
-
         private static long id = 0;
 
         private static void AddLog(string msg, string status)
@@ -40,6 +34,18 @@ namespace Test6_mod.ViewModels.UI
             "Предуприждение.",
             "Информация..."
         };
+
+        static CreateCollectionInfo()
+        {
+            StartPage.AddLogURL += StartPage_AddURL;
+            StartPage.AddLogFaultURL += StartPage_FaultAddURL;
+            StartPage.ScanFaultInfo += StartPage_ScanFaultInfo;
+        }
+
+        private static void StartPage_ScanFaultInfo(object sender, MessageScanUrlEventArgs e)
+        {
+            AddLog(e.Msg, StatusList[0]);
+        }
 
         private static void StartPage_FaultAddURL(object sender, AddInfoEventArgs e)
         {

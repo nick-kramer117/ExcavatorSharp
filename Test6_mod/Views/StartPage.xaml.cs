@@ -26,7 +26,9 @@ namespace Test6_mod
         public static event EventHandler<AddInfoEventArgs> AddLogURL;
         public static event EventHandler<AddInfoEventArgs> AddLogFaultURL;
         public static event EventHandler<AddUrlEventArgs> AddURL;
-
+        public static event EventHandler<StartScanUrlEventArgs> StartScan;
+        public static event EventHandler<MessageScanUrlEventArgs> ScanFaultInfo;
+        
         public string HtmlContent { get; set; }
 
         public StartPage()
@@ -35,6 +37,7 @@ namespace Test6_mod
 
             CollectionURL.ItemsSource = CreateCollectionURL.CollectionURLs;
             LogTable.ItemsSource = CreateCollectionInfo.CollectionInfo;
+            WorkWithPages.inWork = true;
         }
 
         private void AddUrlPage(object sender, MouseButtonEventArgs e)
@@ -60,6 +63,18 @@ namespace Test6_mod
 
         private void StartScanning(object sender, MouseButtonEventArgs e)
         {
+            try
+            {
+                StartScan(this, new StartScanUrlEventArgs(CreateCollectionURL.CollectionURLs));
+            }
+            catch(MultiDownloadIsNullExeption ex)
+            {
+                ScanFaultInfo(this, new MessageScanUrlEventArgs(ex.Message));
+            }
+            catch(Exception ex)
+            {
+                ScanFaultInfo(this, new MessageScanUrlEventArgs(ex.Message));
+            }
             txtURL.Text = "";
         }
     }

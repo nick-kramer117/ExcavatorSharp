@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Test6_mod.ViewModels.Event
 {
@@ -12,12 +8,9 @@ namespace Test6_mod.ViewModels.Event
 
         public string Status { get; private set; }
 
-        public AddInfoEventArgs()
-        {
+        public AddInfoEventArgs() { }
 
-        }
-
-        public AddInfoEventArgs(string msg, string status = "")
+        public AddInfoEventArgs(in string msg, in string status = "")
         {
             if(Msg != "") Msg = msg;
             if (status != "") Status = "";

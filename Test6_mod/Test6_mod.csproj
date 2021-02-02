@@ -70,6 +70,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\WebPage.cs" />
     <Page Include="Views\StartPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -80,15 +81,20 @@
     </Compile>
     <Compile Include="Models\ItemCollectionURL.cs" />
     <Compile Include="Models\ItemCollectionInfo.cs" />
+    <Compile Include="Models\WebPagReader.cs" />
     <Compile Include="ViewModels\Event\AddInfoEventArgs.cs" />
     <Compile Include="ViewModels\Event\AddUrlEventArgs.cs" />
-    <Compile Include="ViewModels\Event\StartScanUrlArgs.cs" />
+    <Compile Include="ViewModels\Event\MessageScanUrlEventArgs.cs" />
+    <Compile Include="ViewModels\Event\StartScanUrlEventArgs.cs" />
+    <Compile Include="ViewModels\Exceptions\MultiDownloadIsNullExeption.cs" />
     <Compile Include="ViewModels\Exceptions\PathUrlExeption.cs" />
+    <Compile Include="ViewModels\Exceptions\ReaderPageExeption.cs" />
+    <Compile Include="ViewModels\Exceptions\WriterPageExeption.cs" />
     <Compile Include="ViewModels\UI\CreateCollectionInfo.cs" />
     <Compile Include="ViewModels\UI\CreateCollectionURL.cs" />
-    <Compile Include="ViewModels\MultiDownload.cs" />
-    <Compile Include="Models\WebPage.cs" />
-    <Compile Include="ViewModels\WorkWithPages.cs" />
+    <Compile Include="Models\MultiDownload.cs" />
+    <Compile Include="Models\WebPageWriter.cs" />
+    <Compile Include="ViewModels\UI\WorkWithPages.cs" />
     <Compile Include="Views\StartPage.xaml.cs">
       <DependentUpon>StartPage.xaml</DependentUpon>
       <SubType>Code</SubType>
