@@ -39,9 +39,9 @@ namespace Test6_mod.ViewModels
         /// </summary>
         public void StartDownloading()
         {
-            for (int i = 0; i < this.ThreadsCount; i++)
+            for (int i = 0; i < ThreadsCount; i++)
             {
-                ThreadStart threadStarter = new ThreadStart(this.ThreadBody);
+                ThreadStart threadStarter = new ThreadStart(ThreadBody);
                 Thread threadObject = new Thread(threadStarter);
                 threadObject.Start();
             }

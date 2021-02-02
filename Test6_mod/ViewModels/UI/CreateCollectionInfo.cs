@@ -17,8 +17,8 @@ namespace Test6_mod.ViewModels.UI
 
         static CreateCollectionInfo()
         {
-            StartPage.AddURL += StartPage_AddURL;
-            StartPage.FaultAddURL += StartPage_FaultAddURL;
+            StartPage.AddLogURL += StartPage_AddURL;
+            StartPage.AddLogFaultURL += StartPage_FaultAddURL;
         }
 
         private static long id = 0;
@@ -41,14 +41,14 @@ namespace Test6_mod.ViewModels.UI
             "Информация..."
         };
 
-        private static void StartPage_FaultAddURL(object sender, AddInfoEventArg e)
+        private static void StartPage_FaultAddURL(object sender, AddInfoEventArgs e)
         {
-            AddLog("Ошибка при добавление URL!", StatusList[0]);
+            AddLog(e.Msg, StatusList[0]);
         }
 
-        private static void StartPage_AddURL(object sender, AddInfoEventArg e)
+        private static void StartPage_AddURL(object sender, AddInfoEventArgs e)
         {
-            AddLog("Добавлен URL адресс", StatusList[2]);
+            AddLog("Ссылка была добавлена.", StatusList[2]);
         }
     }
 }

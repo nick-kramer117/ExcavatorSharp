@@ -7,16 +7,26 @@ using System.Threading.Tasks;
 using System.ComponentModel;
 
 using Test6_mod.Models;
+using Test6_mod;
 
 namespace Test6_mod.ViewModels.UI
 {
-    public class CreateCollectionURL
+    public static class CreateCollectionURL
     {
-        public BindingList<ItemCollectionURL> CollectionURLs { get; private set; } = new BindingList<ItemCollectionURL>();
-
-        public void AddUrl(string url)
+        static CreateCollectionURL()
         {
-            
+            StartPage.AddURL += StartPage_AddURL;
+        }
+
+        private static void StartPage_AddURL(object sender, Event.AddUrlEventArgs e)
+        {
+            Add(e.URL);
+        }
+
+        public static BindingList<ItemCollectionURL> CollectionURLs { get; private set; } = new BindingList<ItemCollectionURL>();
+
+        private static void Add(string url)
+        {       
             CollectionURLs.Add(new ItemCollectionURL()
             {
                 IsName = Guid.NewGuid().ToString(),

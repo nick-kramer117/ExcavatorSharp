@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace Test6_mod.ViewModels.Event
 {
-    public class AddInfoEventArg : EventArgs 
+    public class StartScanUrlArgs : EventArgs
     {
-        public string Msg { get; private set; }
 
-        public string Status { get; private set; }
     }
 }

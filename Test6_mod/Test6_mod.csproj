@@ -80,7 +80,10 @@
     </Compile>
     <Compile Include="Models\ItemCollectionURL.cs" />
     <Compile Include="Models\ItemCollectionInfo.cs" />
-    <Compile Include="ViewModels\Event\AddInfoEventArg.cs" />
+    <Compile Include="ViewModels\Event\AddInfoEventArgs.cs" />
+    <Compile Include="ViewModels\Event\AddUrlEventArgs.cs" />
+    <Compile Include="ViewModels\Event\StartScanUrlArgs.cs" />
+    <Compile Include="ViewModels\Exceptions\PathUrlExeption.cs" />
     <Compile Include="ViewModels\UI\CreateCollectionInfo.cs" />
     <Compile Include="ViewModels\UI\CreateCollectionURL.cs" />
     <Compile Include="ViewModels\MultiDownload.cs" />

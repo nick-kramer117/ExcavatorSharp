@@ -17,15 +17,15 @@ using System.ComponentModel;
 
 using Test6_mod.ViewModels.UI;
 using Test6_mod.ViewModels.Event;
+using Test6_mod.ViewModels.Exceptions;
 
 namespace Test6_mod
 {
     public partial class StartPage : Window
     {
-        private CreateCollectionURL URLs = new CreateCollectionURL();
-
-        public static event EventHandler<AddInfoEventArg> AddURL;
-        public static event EventHandler<AddInfoEventArg> FaultAddURL;
+        public static event EventHandler<AddInfoEventArgs> AddLogURL;
+        public static event EventHandler<AddInfoEventArgs> AddLogFaultURL;
+        public static event EventHandler<AddUrlEventArgs> AddURL;
 
         public string HtmlContent { get; set; }
 
@@ -33,18 +33,8 @@ namespace Test6_mod
         {
             InitializeComponent();
 
-            CollectionURL.ItemsSource = URLs.CollectionURLs;
+            CollectionURL.ItemsSource = CreateCollectionURL.CollectionURLs;
             LogTable.ItemsSource = CreateCollectionInfo.CollectionInfo;
-        }
-
-        private void CollectionInfo_ListChanged(object sender, ListChangedEventArgs e)
-        {
-            switch (e.ListChangedType)
-            {
-                case ListChangedType.ItemAdded:
-                    
-                    break;
-            }
         }
 
         private void AddUrlPage(object sender, MouseButtonEventArgs e)
@@ -53,12 +43,16 @@ namespace Test6_mod
             {
                 try
                 {
-                    URLs.AddUrl(txtURL.Text);
-                    AddURL(this, new AddInfoEventArg());
+                    AddURL(this, new AddUrlEventArgs(txtURL.Text));
+                    AddLogURL(this, new AddInfoEventArgs());
+                }
+                catch(PathUrlExeption ex)
+                {
+                    AddLogFaultURL(this, new AddInfoEventArgs(ex.Message));
                 }
                 catch(Exception ex)
                 {
-                    FaultAddURL(this, new AddInfoEventArg());
+                    AddLogFaultURL(this, new AddInfoEventArgs(ex.Message));
                 }
             }
             txtURL.Text = "";
