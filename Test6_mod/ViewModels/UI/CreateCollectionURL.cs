@@ -16,6 +16,7 @@ namespace Test6_mod.ViewModels.UI
 
         public void AddUrl(string url)
         {
+            
             CollectionURLs.Add(new ItemCollectionURL()
             {
                 IsName = Guid.NewGuid().ToString(),

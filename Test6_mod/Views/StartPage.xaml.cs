@@ -14,15 +14,18 @@ using System.Windows.Shapes;
 using System.Windows;
 using System.Windows.Input;
 using System.ComponentModel;
-using System.Xaml;
 
 using Test6_mod.ViewModels.UI;
+using Test6_mod.ViewModels.Event;
 
 namespace Test6_mod
 {
     public partial class StartPage : Window
     {
         private CreateCollectionURL URLs = new CreateCollectionURL();
+
+        public static event EventHandler<AddInfoEventArg> AddURL;
+        public static event EventHandler<AddInfoEventArg> FaultAddURL;
 
         public string HtmlContent { get; set; }
 
@@ -31,12 +34,33 @@ namespace Test6_mod
             InitializeComponent();
 
             CollectionURL.ItemsSource = URLs.CollectionURLs;
+            LogTable.ItemsSource = CreateCollectionInfo.CollectionInfo;
+        }
+
+        private void CollectionInfo_ListChanged(object sender, ListChangedEventArgs e)
+        {
+            switch (e.ListChangedType)
+            {
+                case ListChangedType.ItemAdded:
+                    
+                    break;
+            }
         }
 
         private void AddUrlPage(object sender, MouseButtonEventArgs e)
         {
-            if (txtURL.Text != "") 
-                URLs.AddUrl(txtURL.Text);
+            if (txtURL.Text != "")
+            {
+                try
+                {
+                    URLs.AddUrl(txtURL.Text);
+                    AddURL(this, new AddInfoEventArg());
+                }
+                catch(Exception ex)
+                {
+                    FaultAddURL(this, new AddInfoEventArg());
+                }
+            }
             txtURL.Text = "";
         }
 

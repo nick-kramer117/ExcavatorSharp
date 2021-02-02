@@ -79,8 +79,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Models\ItemCollectionURL.cs" />
-    <Compile Include="Models\LogInfo.cs" />
-    <Compile Include="ViewModels\CreateCollectionURL.cs" />
+    <Compile Include="Models\ItemCollectionInfo.cs" />
+    <Compile Include="ViewModels\Event\AddInfoEventArg.cs" />
+    <Compile Include="ViewModels\UI\CreateCollectionInfo.cs" />
+    <Compile Include="ViewModels\UI\CreateCollectionURL.cs" />
     <Compile Include="ViewModels\MultiDownload.cs" />
     <Compile Include="Models\WebPage.cs" />
     <Compile Include="ViewModels\WorkWithPages.cs" />

@@ -1,52 +1,57 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using System.ComponentModel;
+
 namespace Test6_mod.Models
 {
-    public delegate void AddItemCollectionURL(string column, string changed);
-    public class ItemCollectionURL : INotifyPropertyChanged
+    public delegate void AddLogInfo(string column, string changed);
+    public delegate void AddId(long id);
+
+
+    public class ItemCollectionInfo : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-
-        public static AddItemCollectionURL ThisChanged;
+        
+        public static AddLogInfo ThisChanged;
+        public static AddId AddNewRow;
 
         #region Приватные переменные
         public static bool _IsInitialization;
-        private string _Name;
-        private string _URL;
-        private bool _Status;
+        private long _Id;
+        private string _Coment;
+        private string _Status;
         #endregion
 
         #region Публичные поля
-        public string IsName
+        public long IsId
         {
-            get { return _Name; }
+            get { return _Id; }
             set
             {
-                if (_Name == value)
+                if (_Id == value)
                     return;
-                _Name = value;
+                _Id = value;
                 if (!_IsInitialization)
-                    OnPropertyChanged("Name");
+                    OnPropertyChanged("Id");
             }
         }
-        public string IsURL
+        public string IsComent
         {
-            get { return _URL; }
+            get { return _Coment; }
             set
             {
-                if (_URL == value)
+                if (_Coment == value)
                     return;
-                _URL = value;
+                _Coment = value;
                 if (!_IsInitialization)
-                    OnPropertyChanged("URL");
+                    OnPropertyChanged("Coment");
             }
         }
-        public bool IsStatus
+        public string IsStatus
         {
             get { return _Status; }
             set
@@ -65,12 +70,12 @@ namespace Test6_mod.Models
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
             switch (propertyName)
             {
-                case "Name":
-                    ThisChanged?.Invoke(propertyName, IsName);
+                case "Id":
+                    AddNewRow?.Invoke(IsId);
                     break;
 
-                case "URL":
-                    ThisChanged?.Invoke(propertyName, IsURL);
+                case "Coment":
+                    ThisChanged?.Invoke(propertyName, IsComent);
                     break;
 
                 case "Status":

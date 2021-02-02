@@ -283,11 +283,11 @@
                                                 Binding="{Binding IsId}" 
                                                 Header="Ключь"/>
                                 <DataGridTextColumn Width="30*" 
-                                                IsReadOnly="False" 
+                                                IsReadOnly="True" 
                                                 Binding="{Binding IsComent}" 
                                                 Header="Описание"/>
                                 <DataGridTextColumn Width="10*" 
-                                                IsReadOnly="False" 
+                                                IsReadOnly="True" 
                                                 Binding="{Binding IsStatus}" 
                                                 Header="Статус"/>
                             </DataGrid.Columns>
