@@ -19,6 +19,8 @@ namespace Test6_mod.ViewModels.UI
 
         private static long id = 0;
 
+        private static WorkWithPages Worker = new WorkWithPages();
+
         private static void AddLog(string msg, string status)
         {
             id += 1;
@@ -42,24 +44,27 @@ namespace Test6_mod.ViewModels.UI
             StartPage.AddLogURL += StartPage_AddURL;
             StartPage.AddLogFaultURL += StartPage_FaultAddURL;
             StartPage.ScanFaultInfo += StartPage_ScanFaultInfo;
-            StartPage.AddLogClicked_Scan += StartPage_AddLogClicked_Scan;
-            MultiDownload.FinalThreadInfo += MultiDownload_FinalThreadInfo;
-            MultiDownload.ThreadStopInfo += MultiDownload_ThreadStopInfo;
+            StartPage.StartScan += StartPage_StartScan;
         }
 
-        private static void StartPage_AddLogClicked_Scan(object sender, AddInfoEventArgs e)
+        private static void Worker_ThreadStop(object sender, AddInfoEventArgs e)
         {
-            AddLog("Сканирование сайтов запущенно...", StatusList[2]);
+            AddLog("Страница просканированна: " + e.Msg, StatusList[2]);
         }
 
-        private static void MultiDownload_ThreadStopInfo(object sender, ThreadFinishInfoEventArgs e)
+        private static void Worker_FinalThreadsAll(object sender, AddInfoEventArgs e)
         {
             AddLog(e.Msg, StatusList[2]);
+            Worker.ThreadStop -= Worker_ThreadStop;
+            Worker.FinalThreadsAll -= Worker_FinalThreadsAll;
         }
 
-        private static void MultiDownload_FinalThreadInfo(object sender, FinishScanEventArgs e)
+        private static void StartPage_StartScan(object sender, StartScanUrlEventArgs e)
         {
-            AddLog("Все ссылки скаченны!", StatusList[2]);
+            AddLog("Сканирование сайтов запущенно...", StatusList[2]);
+            Worker = new WorkWithPages(e);
+            Worker.ThreadStop += Worker_ThreadStop;
+            Worker.FinalThreadsAll += Worker_FinalThreadsAll;
         }
 
         private static void StartPage_ScanFaultInfo(object sender, MessageScanUrlEventArgs e)

@@ -5,37 +5,24 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
+
+using System.Windows.Threading;
+
 using Test6_mod.ViewModels.Exceptions;
+using Test6_mod.ViewModels.Event;
 using Test6_mod.Models;
 
 namespace Test6_mod.ViewModels.UI
 {
-    public static class WorkWithPages
+    public class WorkWithPages 
     {
-        public static bool inWork { get; set; }
+        public event EventHandler<AddInfoEventArgs> ThreadStop;
+        public event EventHandler<AddInfoEventArgs> FinalThreadsAll;
 
-        static WorkWithPages()
-        {
-            ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12;
-            StartPage.StartScan += StartPage_StartScan;
-        }
 
-        private static void StartPage_StartScan(object sender, Event.StartScanUrlEventArgs e)
-        {
-            using(MultiDownload md = new MultiDownload(e.ListURL.Count.GetCount(), e.ListURL))
-            {
-                int j = 0;
-                foreach(var i in e.ListURL)
-                {
-                    if (!i.IsStatus)
-                        j += 1;
-                }
+        private MultiDownload md;
 
-                md.StartDownloading(j);
-            }
-        }
-
-        private static int GetCount(this int c)
+        private int GetCount(int c)
         {
             switch (c)
             {
@@ -54,6 +41,40 @@ namespace Test6_mod.ViewModels.UI
                 default:
                     return 3;
             }
+        }
+
+        private void StartPage_StartScan(in StartScanUrlEventArgs e)
+        {
+            md = new MultiDownload(GetCount(e.ListURL.Count), e.ListURL);
+
+            int j = 0;
+
+            foreach (var i in e.ListURL)
+            {
+                if (!i.IsStatus)
+                    j += 1;
+            }
+
+            md.StartDownloading(j);
+        }
+
+        public WorkWithPages() { }
+
+        public WorkWithPages(StartScanUrlEventArgs e)
+        {
+            StartPage_StartScan(e);
+            md.ThreadStopInfo += MultiDownload_ThreadStopInfo;
+            md.FinalThreadInfo += MultiDownload_FinalThreadInfo;
+        }
+
+        private void MultiDownload_FinalThreadInfo(object sender, FinishScanEventArgs e)
+        {
+            FinalThreadsAll(this, new AddInfoEventArgs("Сканирование завершено"));
+        }
+
+        private void MultiDownload_ThreadStopInfo(object sender, ThreadFinishInfoEventArgs e)
+        {
+            ThreadStop(this, new AddInfoEventArgs(e.Msg));
         }
     }
 }

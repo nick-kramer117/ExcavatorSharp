@@ -10,13 +10,16 @@ using Test6_mod.ViewModels.UI;
 
 namespace Test6_mod.Models
 {
-    public class MultiDownload : IDisposable
+    public class MultiDownload
     {
-        public static event EventHandler<FinishScanEventArgs> FinalThreadInfo;
-        public static event EventHandler<ThreadFinishInfoEventArgs> ThreadStopInfo;
-        private static int fc = 0;
-        private static int max = 0;
-        private static object _key = new object();
+        public event EventHandler<FinishScanEventArgs> FinalThreadInfo;
+        public event EventHandler<ThreadFinishInfoEventArgs> ThreadStopInfo;
+
+        private SynchronizationContext sync;
+
+        private int fc = 1;
+        private int max = 0;
+        private object _key = new object();
 
         private int ThreadsCount { get; set; }
 
@@ -24,6 +27,7 @@ namespace Test6_mod.Models
 
         public MultiDownload(int c, in ConcurrentQueue<ItemCollectionURL> l)
         {
+            sync = SynchronizationContext.Current;
             ThreadsCount = c;
             ListURL = l;
             CreateCollectionInfo.isWork = true;
@@ -35,13 +39,16 @@ namespace Test6_mod.Models
 
             for (int i = 0; i < ThreadsCount; i++)
             {
-                ThreadStart threadStarter = new ThreadStart(ThreadBody);
-                Thread threadObject = new Thread(threadStarter);
-                threadObject.Start();
+                //ThreadStart threadStarter = new ThreadStart(ThreadBody);
+                //Thread threadObject = new Thread(threadStarter);
+                //threadObject.Start();
+
+                Thread threadObject = new Thread(ThreadBody);
+                threadObject.Start(sync);
             }
         }
 
-        private void ThreadBody()
+        private void ThreadBody(object param)
         {      
             RestClient client = new RestClient();
 
@@ -62,6 +69,8 @@ namespace Test6_mod.Models
                     };
 
                     pw.SaveToFileJSON(page, w);
+                    
+                    sync.Send(SendEndDownloadPage, page.IsName);
 
                     Thread.Sleep(1500);
                 }
@@ -75,20 +84,24 @@ namespace Test6_mod.Models
             {
                 fc += 1;
 
-               // ThreadStopInfo(this, new ThreadFinishInfoEventArgs(page.IsName));
-
                 if (max == fc)
                 {
                     max = 0;
-                    fc = 0;
-                  //  FinalThreadInfo(this, new FinishScanEventArgs());
+                    fc = 1;
+
+                    sync.Send(SendFinishAllDownload, this);
                 }
             }
         }
 
-        public void Dispose()
+        private void SendEndDownloadPage(object i)
         {
-            GC.Collect(0);
+            ThreadStopInfo(this, new ThreadFinishInfoEventArgs(i.ToString()));
+        }
+
+        private void SendFinishAllDownload(object i)
+        {
+            FinalThreadInfo(this, new FinishScanEventArgs());
         }
     }
 }

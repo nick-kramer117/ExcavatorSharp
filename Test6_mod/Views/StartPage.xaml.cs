@@ -1,4 +1,5 @@
 ﻿using System;
+
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+using System.Net;
 using System.Windows;
 using System.Windows.Input;
 using System.ComponentModel;
@@ -24,24 +26,22 @@ namespace Test6_mod
     public partial class StartPage : Window
     {
         public static event EventHandler<AddInfoEventArgs> AddLogURL;
-        public static event EventHandler<AddInfoEventArgs> AddLogClicked_Scan;
         public static event EventHandler<AddInfoEventArgs> AddLogFaultURL;
         public static event EventHandler<AddUrlEventArgs> AddURL;
         public static event EventHandler<StartScanUrlEventArgs> StartScan;
         public static event EventHandler<MessageScanUrlEventArgs> ScanFaultInfo;
         public static event EventHandler<FinishScanEventArgs> StopScan;
-        
+
         public string HtmlContent { get; set; }
 
         public StartPage()
         {
             InitializeComponent();
+            ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12;
 
             CollectionURL.ItemsSource = CreateCollectionURL.CollectionURLs;
             LogTable.ItemsSource = CreateCollectionInfo.CollectionInfo;
             CreateCollectionInfo.CollectionInfo.ListChanged += CollectionInfo_ListChanged;
-            WorkWithPages.inWork = true;
-
         }
 
         private void CollectionInfo_ListChanged(object sender, ListChangedEventArgs e)
@@ -80,7 +80,6 @@ namespace Test6_mod
         {
             try
             {
-                AddLogClicked_Scan(this, new AddInfoEventArgs());
                 StartScan(this, new StartScanUrlEventArgs(CreateCollectionURL.CollectionURLs));
                 //StopScan(this, new FinishScanEventArgs());
             }
