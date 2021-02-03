@@ -25,23 +25,55 @@ namespace Test6_mod
 {
     public partial class StartPage : Window
     {
+        private CreateCollectionURL URLs;
+        private static ReaderListLoadPage Reader;
         public static event EventHandler<AddInfoEventArgs> AddLogURL;
         public static event EventHandler<AddInfoEventArgs> AddLogFaultURL;
+        public static event EventHandler<AddInfoEventArgs> AddInfoReadHTML;
+        public static event EventHandler<AddInfoEventArgs> AddInfoReadFinishHTML;
         public static event EventHandler<AddUrlEventArgs> AddURL;
         public static event EventHandler<StartScanUrlEventArgs> StartScan;
         public static event EventHandler<MessageScanUrlEventArgs> ScanFaultInfo;
-        public static event EventHandler<FinishScanEventArgs> StopScan;
-
-        public string HtmlContent { get; set; }
-
+        public static event EventHandler<QueryReadFileEventArgs> GetHTML;
+        public static event EventHandler<AddInfoEventArgs> ReaderFlautInfo;
+    
         public StartPage()
         {
             InitializeComponent();
             ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12;
 
-            CollectionURL.ItemsSource = CreateCollectionURL.CollectionURLs;
+            URLs = new CreateCollectionURL();
+            CollectionURL.ItemsSource = URLs.CollectionURLs;
+            URLs.CollectionURLs.ListChanged += CollectionURLs_ListChanged;
+
             LogTable.ItemsSource = CreateCollectionInfo.CollectionInfo;
+            
             CreateCollectionInfo.CollectionInfo.ListChanged += CollectionInfo_ListChanged;
+
+            Reader = new ReaderListLoadPage();
+            Reader.SetInfo += SetContent;
+        }
+
+        private void SetContent(object sender, PathContentInViewEventArgs e)
+        {
+            HtmlContent.Text = e.HTML;
+            AddInfoReadFinishHTML(this, new AddInfoEventArgs(e.Msg));
+        }
+
+        private void CollectionURLs_ListChanged(object sender, ListChangedEventArgs e)
+        {
+            switch (e.ListChangedType)
+            {
+                case ListChangedType.ItemChanged:
+                    if (!btnScan.IsEnabled && !btnAdd.IsEnabled)
+                    {
+                        btnScan.IsEnabled = true;
+                        btnAdd.IsEnabled = true;
+                        CollectionURL.IsEnabled = true;
+                    }
+                    CollectionURL.Items.Refresh();
+                    break;
+            }
         }
 
         private void CollectionInfo_ListChanged(object sender, ListChangedEventArgs e)
@@ -80,8 +112,10 @@ namespace Test6_mod
         {
             try
             {
-                StartScan(this, new StartScanUrlEventArgs(CreateCollectionURL.CollectionURLs));
-                //StopScan(this, new FinishScanEventArgs());
+                btnScan.IsEnabled = false;
+                btnAdd.IsEnabled = false;
+                CollectionURL.IsEnabled = false;
+                StartScan(this, new StartScanUrlEventArgs(URLs.CollectionURLs));
             }
             catch(MultiDownloadIsNullExeption ex)
             {
@@ -94,9 +128,17 @@ namespace Test6_mod
             txtURL.Text = "";
         }
 
-        private void CollectionURL_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void CollectionURL_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            MessageBox.Show("ok");
+            try
+            {
+                AddInfoReadHTML(this, new AddInfoEventArgs());
+                GetHTML(this, new QueryReadFileEventArgs(e.AddedItems));
+            }
+            catch(FaultReadFileExeption ex)
+            {
+                ReaderFlautInfo(this, new AddInfoEventArgs(ex.Message));
+            }    
         }
     }
 }

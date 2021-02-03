@@ -86,16 +86,19 @@
     <Compile Include="ViewModels\Event\AddUrlEventArgs.cs" />
     <Compile Include="ViewModels\Event\FinishScanEventArgs.cs" />
     <Compile Include="ViewModels\Event\MessageScanUrlEventArgs.cs" />
+    <Compile Include="ViewModels\Event\PathContentInViewEventArgs.cs" />
+    <Compile Include="ViewModels\Event\QueryReadFileEventArgs.cs" />
     <Compile Include="ViewModels\Event\StartScanUrlEventArgs.cs" />
     <Compile Include="ViewModels\Event\ThreadFinishInfoEventArgs.cs" />
+    <Compile Include="ViewModels\Exceptions\FaultReadFileExeption.cs" />
     <Compile Include="ViewModels\Exceptions\MultiDownloadIsNullExeption.cs" />
     <Compile Include="ViewModels\Exceptions\PathUrlExeption.cs" />
-    <Compile Include="ViewModels\Exceptions\ReaderPageExeption.cs" />
     <Compile Include="ViewModels\Exceptions\WriterPageExeption.cs" />
     <Compile Include="ViewModels\UI\CreateCollectionInfo.cs" />
     <Compile Include="ViewModels\UI\CreateCollectionURL.cs" />
     <Compile Include="Models\MultiDownload.cs" />
     <Compile Include="Models\WebPageWriter.cs" />
+    <Compile Include="ViewModels\UI\ReaderListLoadPage.cs" />
     <Compile Include="ViewModels\UI\WorkWithPages.cs" />
     <Compile Include="Views\StartPage.xaml.cs">
       <DependentUpon>StartPage.xaml</DependentUpon>

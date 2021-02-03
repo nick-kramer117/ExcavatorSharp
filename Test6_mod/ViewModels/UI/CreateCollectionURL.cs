@@ -9,11 +9,11 @@ using Test6_mod.Models;
 
 namespace Test6_mod.ViewModels.UI
 {
-    public static class CreateCollectionURL
+    public class CreateCollectionURL
     {
-        public static BindingList<ItemCollectionURL> CollectionURLs { get; private set; } = new BindingList<ItemCollectionURL>();
+        public BindingList<ItemCollectionURL> CollectionURLs { get; private set; } = new BindingList<ItemCollectionURL>();
 
-        private static void Add(string url)
+        private void Add(string url)
         {
             CollectionURLs.Add(new ItemCollectionURL()
             {
@@ -23,12 +23,31 @@ namespace Test6_mod.ViewModels.UI
             });
         }
 
-        static CreateCollectionURL()
+        private void SetStatusTrue()
         {
-            StartPage.AddURL += StartPage_AddURL;
+            int i = -1;
+            foreach (var item in CollectionURLs)
+            {
+                i += 1;
+                if (!item.IsStatus)
+                {
+                    CollectionURLs[i].IsStatus = true;
+                }
+            }
         }
 
-        private static void StartPage_AddURL(object sender, Event.AddUrlEventArgs e)
+        public CreateCollectionURL()
+        {
+            StartPage.AddURL += StartPage_AddURL;
+            CreateCollectionInfo.CreateListIsUrlTrue += CreateCollectionInfo_CreateListIsUrlTrue;
+        }
+
+        private void CreateCollectionInfo_CreateListIsUrlTrue(object sender, Event.FinishScanEventArgs e)
+        {
+            SetStatusTrue();
+        }
+
+        private void StartPage_AddURL(object sender, Event.AddUrlEventArgs e)
         {
             Add(e.URL);
         }

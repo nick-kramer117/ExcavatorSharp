@@ -17,7 +17,7 @@ namespace Test6_mod.Models
 
         private SynchronizationContext sync;
 
-        private int fc = 1;
+        private int fc = 0;
         private int max = 0;
         private object _key = new object();
 
@@ -39,10 +39,6 @@ namespace Test6_mod.Models
 
             for (int i = 0; i < ThreadsCount; i++)
             {
-                //ThreadStart threadStarter = new ThreadStart(ThreadBody);
-                //Thread threadObject = new Thread(threadStarter);
-                //threadObject.Start();
-
                 Thread threadObject = new Thread(ThreadBody);
                 threadObject.Start(sync);
             }
@@ -59,48 +55,44 @@ namespace Test6_mod.Models
                 RestRequest request = new RestRequest(page.IsURL);
                 IRestResponse DownloadResult = client.Execute(request);
 
-                try
+                WebPageWriter pw = new WebPageWriter();
+                WebPage w = new WebPage()
                 {
-                    WebPageWriter pw = new WebPageWriter();
-                    WebPage w = new WebPage()
-                    {
-                        Satus = true,
-                        Content = DownloadResult.Content
-                    };
+                    Satus = true,
+                    Content = DownloadResult.Content
+                };
 
-                    pw.SaveToFileJSON(page, w);
-                    
-                    sync.Send(SendEndDownloadPage, page.IsName);
+                pw.SaveToFileJSON(page, w);
 
-                    Thread.Sleep(1500);
-                }
-                catch
-                {
+                sync.Send(SendEndDownloadPage, page.IsName);
 
-                }
+                Thread.Sleep(1500);
             }
 
             lock (_key)
             {
-                fc += 1;
+                
 
-                if (max == fc)
-                {
-                    max = 0;
-                    fc = 1;
-
-                    sync.Send(SendFinishAllDownload, this);
-                }
+                
+                   
             }
         }
 
         private void SendEndDownloadPage(object i)
         {
             ThreadStopInfo(this, new ThreadFinishInfoEventArgs(i.ToString()));
+            
+            fc += 1;
+            if (max == fc)
+            {
+                max = 0;
+                SendFinishAllDownload();
+            }
         }
 
-        private void SendFinishAllDownload(object i)
+        private void SendFinishAllDownload()
         {
+            fc = 0;
             FinalThreadInfo(this, new FinishScanEventArgs());
         }
     }

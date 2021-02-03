@@ -6,13 +6,15 @@ using System.Threading.Tasks;
 
 namespace Test6_mod.ViewModels.Event
 {
-    public class ThreadFinishInfoEventArgs : EventArgs
+    public class PathContentInViewEventArgs : EventArgs
     {
         public string Msg { get; private set; }
+        public string HTML { get; private set; }
 
-        public ThreadFinishInfoEventArgs(string namePage)
+        public PathContentInViewEventArgs(string m, string h)
         {
-            Msg = namePage;
+            Msg = m;
+            HTML = h;
         }
     }
 }

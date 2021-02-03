@@ -19,7 +19,6 @@ namespace Test6_mod.ViewModels.UI
         public event EventHandler<AddInfoEventArgs> ThreadStop;
         public event EventHandler<AddInfoEventArgs> FinalThreadsAll;
 
-
         private MultiDownload md;
 
         private int GetCount(int c)
@@ -64,12 +63,12 @@ namespace Test6_mod.ViewModels.UI
         {
             StartPage_StartScan(e);
             md.ThreadStopInfo += MultiDownload_ThreadStopInfo;
-            md.FinalThreadInfo += MultiDownload_FinalThreadInfo;
+            md.FinalThreadInfo += Md_FinalThreadInfo;
         }
 
-        private void MultiDownload_FinalThreadInfo(object sender, FinishScanEventArgs e)
+        private void Md_FinalThreadInfo(object sender, FinishScanEventArgs e)
         {
-            FinalThreadsAll(this, new AddInfoEventArgs("Сканирование завершено"));
+            FinalThreadsAll(this, new AddInfoEventArgs());
         }
 
         private void MultiDownload_ThreadStopInfo(object sender, ThreadFinishInfoEventArgs e)

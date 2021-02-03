@@ -149,7 +149,7 @@
                                 HorizontalAlignment="Stretch"
                                 ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
                                 ScrollViewer.VerticalScrollBarVisibility="Disabled">
-                                <ListViewItem Height="50" MouseDoubleClick="AddUrlPage">
+                                <ListViewItem Name="btnAdd" Height="50" MouseDoubleClick="AddUrlPage">
                                     <StackPanel Orientation="Horizontal" 
                                             Focusable="False">
                                         <materialDesign:PackIcon Kind="Add" 
@@ -158,7 +158,7 @@
                                                              VerticalAlignment="Center" 
                                                              Foreground="{StaticResource MyWhite_0}"
                                                              Margin="13,0"/>
-                                        <TextBlock Name="btn1" 
+                                        <TextBlock Name="AddText" 
                                                Text="Добавить сайт" 
                                                FontSize="15" 
                                                VerticalAlignment="Center" 
@@ -167,7 +167,7 @@
                                                Focusable="False"/>
                                     </StackPanel>
                                 </ListViewItem>
-                                <ListViewItem Height="50" MouseDoubleClick="StartScanning">
+                                <ListViewItem Name="btnScan" Height="50" MouseDoubleClick="StartScanning">
                                     <StackPanel Orientation="Horizontal"
                                             Focusable="False">
                                         <materialDesign:PackIcon Kind="Download" 
@@ -175,7 +175,7 @@
                                                              VerticalAlignment="Center" 
                                                              Foreground="{StaticResource MyWhite_0}" 
                                                              Margin="13,0"/>
-                                        <TextBlock Name="btn2" 
+                                        <TextBlock Name="ScanText" 
                                                Text="Сканировать сайт" 
                                                FontSize="15"
                                                VerticalAlignment="Center" 
@@ -213,17 +213,16 @@
                         </Grid>
                         <Grid Grid.Row="1">
                             <DataGrid x:Name="CollectionURL" 
-                                  AutoGenerateColumns="False"                              
-                                  FontSize="10"
-                                  Foreground="{DynamicResource DarkGreay_3}"
-                                  Background="Transparent"
-                                  CanUserAddRows="False"
-                                  CanUserDeleteRows="False"
-                                  BorderBrush="{x:Null}" 
-                                  GridLinesVisibility="Vertical"
-                                  materialDesign:ThemeAssist.Theme="Dark"
-                                  MouseDoubleClick="CollectionURL_MouseDoubleClick"
-                                  VerticalGridLinesBrush="#B2686868">
+                                      AutoGenerateColumns="False"                              
+                                      FontSize="10"
+                                      Foreground="{DynamicResource DarkGreay_3}"
+                                      Background="Transparent"
+                                      CanUserAddRows="False"
+                                      CanUserDeleteRows="False"
+                                      BorderBrush="{x:Null}" 
+                                      GridLinesVisibility="Vertical"
+                                      materialDesign:ThemeAssist.Theme="Dark"                                   
+                                      VerticalGridLinesBrush="#B2686868" SelectionChanged="CollectionURL_SelectionChanged">
                                 <DataGrid.Columns>
                                     <DataGridTextColumn Width="*" 
                                                 IsReadOnly="True" 
@@ -235,7 +234,9 @@
                                                 Header="Сылка"/>
                                     <DataGridTextColumn Width="70" 
                                                 IsReadOnly="True" 
-                                                Binding="{Binding IsStatus}" 
+                                                Binding="{Binding IsStatus, 
+                                                                  Mode=TwoWay, 
+                                                                  UpdateSourceTrigger=PropertyChanged}" 
                                                 Header="Статус"/>
                                 </DataGrid.Columns>
                             </DataGrid>
@@ -320,7 +321,7 @@
                     </Grid>
                 </Grid>
                 <Grid Grid.Row="1">
-                    <TextBox Text="{Binding HtmlContent}" 
+                    <TextBox Name="HtmlContent"
                              Margin="2 0" 
                              Foreground="{StaticResource MyWhite_0}" 
                              FontSize="15" 

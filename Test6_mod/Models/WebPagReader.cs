@@ -4,44 +4,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
+
+using Test6_mod.ViewModels.Exceptions;
 
 namespace Test6_mod.Models
 {
-    public class WebPagReader
+    public static class WebPagReader
     {
         #region Десериализация
-        /// <summary>
-        /// Десериализация строки в модель страници со взятием контента
-        /// </summary>
-        /// <param name="w"> Строка модели страници </param>
-        /// <returns></returns>
-        public static string GetContent(string w)
+        public static string GetContentJSON(this string w)
         {
             try
             {
-                throw new Exception();
+                w = w + ".json";
+                WebPage t = JsonConvert.DeserializeObject<WebPage>(File.ReadAllText(w));      
+                if (t.Satus)
+                    return t.Content;
+                else throw new FaultReadFileExeption("Ошибка чтения файл!");
             }
-            catch (JsonReaderException ex)
+            catch (Exception)
             {
-                throw new Exception();
-            }
-        }
-
-        /// <summary>
-        /// Десериализация строки в модель страници со взятием URL-адреса
-        /// </summary>
-        /// <param name="w"> Строка модели страници </param>
-        /// <returns></returns>
-        public static string GetURL(string w)
-        {
-            try
-            {
-                WebPage t = JsonConvert.DeserializeObject<WebPage>(w);
-                return t.Content;
-            }
-            catch (JsonReaderException ex)
-            {
-                throw new Exception();
+                throw new FaultReadFileExeption();
             }
         }
         #endregion
