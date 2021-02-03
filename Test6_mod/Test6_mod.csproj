@@ -84,8 +84,10 @@
     <Compile Include="Models\WebPagReader.cs" />
     <Compile Include="ViewModels\Event\AddInfoEventArgs.cs" />
     <Compile Include="ViewModels\Event\AddUrlEventArgs.cs" />
+    <Compile Include="ViewModels\Event\FinishScanEventArgs.cs" />
     <Compile Include="ViewModels\Event\MessageScanUrlEventArgs.cs" />
     <Compile Include="ViewModels\Event\StartScanUrlEventArgs.cs" />
+    <Compile Include="ViewModels\Event\ThreadFinishInfoEventArgs.cs" />
     <Compile Include="ViewModels\Exceptions\MultiDownloadIsNullExeption.cs" />
     <Compile Include="ViewModels\Exceptions\PathUrlExeption.cs" />
     <Compile Include="ViewModels\Exceptions\ReaderPageExeption.cs" />

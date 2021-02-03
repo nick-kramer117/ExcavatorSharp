@@ -24,10 +24,12 @@ namespace Test6_mod
     public partial class StartPage : Window
     {
         public static event EventHandler<AddInfoEventArgs> AddLogURL;
+        public static event EventHandler<AddInfoEventArgs> AddLogClicked_Scan;
         public static event EventHandler<AddInfoEventArgs> AddLogFaultURL;
         public static event EventHandler<AddUrlEventArgs> AddURL;
         public static event EventHandler<StartScanUrlEventArgs> StartScan;
         public static event EventHandler<MessageScanUrlEventArgs> ScanFaultInfo;
+        public static event EventHandler<FinishScanEventArgs> StopScan;
         
         public string HtmlContent { get; set; }
 
@@ -37,7 +39,20 @@ namespace Test6_mod
 
             CollectionURL.ItemsSource = CreateCollectionURL.CollectionURLs;
             LogTable.ItemsSource = CreateCollectionInfo.CollectionInfo;
+            CreateCollectionInfo.CollectionInfo.ListChanged += CollectionInfo_ListChanged;
             WorkWithPages.inWork = true;
+
+        }
+
+        private void CollectionInfo_ListChanged(object sender, ListChangedEventArgs e)
+        {
+            switch (e.ListChangedType)
+            {
+                case ListChangedType.ItemAdded:
+                    LogTable.ItemsSource = CreateCollectionInfo.CollectionInfo;
+                    DataContext = this;
+                    break;
+            }
         }
 
         private void AddUrlPage(object sender, MouseButtonEventArgs e)
@@ -65,7 +80,9 @@ namespace Test6_mod
         {
             try
             {
+                AddLogClicked_Scan(this, new AddInfoEventArgs());
                 StartScan(this, new StartScanUrlEventArgs(CreateCollectionURL.CollectionURLs));
+                //StopScan(this, new FinishScanEventArgs());
             }
             catch(MultiDownloadIsNullExeption ex)
             {
@@ -76,6 +93,11 @@ namespace Test6_mod
                 ScanFaultInfo(this, new MessageScanUrlEventArgs(ex.Message));
             }
             txtURL.Text = "";
+        }
+
+        private void CollectionURL_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            MessageBox.Show("ok");
         }
     }
 }

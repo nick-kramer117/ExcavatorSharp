@@ -221,7 +221,8 @@
                                   CanUserDeleteRows="False"
                                   BorderBrush="{x:Null}" 
                                   GridLinesVisibility="Vertical"
-                                  materialDesign:ThemeAssist.Theme="Dark" 
+                                  materialDesign:ThemeAssist.Theme="Dark"
+                                  MouseDoubleClick="CollectionURL_MouseDoubleClick"
                                   VerticalGridLinesBrush="#B2686868">
                                 <DataGrid.Columns>
                                     <DataGridTextColumn Width="*" 

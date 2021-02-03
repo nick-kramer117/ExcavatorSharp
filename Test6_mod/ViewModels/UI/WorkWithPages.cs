@@ -24,7 +24,14 @@ namespace Test6_mod.ViewModels.UI
         {
             using(MultiDownload md = new MultiDownload(e.ListURL.Count.GetCount(), e.ListURL))
             {
-                md.StartDownloading();
+                int j = 0;
+                foreach(var i in e.ListURL)
+                {
+                    if (!i.IsStatus)
+                        j += 1;
+                }
+
+                md.StartDownloading(j);
             }
         }
 
